@@ -1,0 +1,10 @@
+fastapi==0.103.0
+uvicorn==0.22.0
+pillow==9.5.0
+python-dotenv==1.0.0
+pyjwt==2.8.0
+sqlalchemy==2.0.19
+alembic==1.13.1
+passlib[bcrypt]==1.7.4
+aiofiles==23.1.0
+requests==2.31.0
