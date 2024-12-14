@@ -1,0 +1,40 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+README.md
+dist
+```
+
+Key Changes and Considerations:
+1. The Dockerfile now uses `npm run dev` instead of building a production build
+2. Docker Compose is configured with volume mounting to sync source code
+3. Vite server is configured to work with Docker
+4. `CHOKIDAR_USEPOLLING` is set to true to improve file watching in Docker
+5. Exposed port is changed to 5173 (Vite's default development port)
+
+Workflow:
+```bash
+# Rebuild the containers
+docker-compose down
+docker-compose up --build
+```
+
+Troubleshooting Tips:
+- Ensure you're using the latest versions of Docker and Docker Compose
+- The `:5173` port is mapped to `:3000` in the docker-compose file
+- `volumes` section allows live reloading of source code
+- `develop` section provides additional watch and rebuild capabilities
+
+Additional Recommendations:
+1. Make sure your local development environment has the same Node.js version as the Dockerfile
+2. If you're on Windows or macOS, you might need to enable volume sharing in Docker Desktop settings
+
+Common Pitfalls:
+- Ensure `node_modules` are not copied from your local machine
+- The `/app/node_modules` volume ensures Docker uses its own node_modules
+- The sync configuration helps with live reloading across different operating systems
+
+Would you like me to explain any part of this configuration in more detail? Do you need help troubleshooting any specific issues with live reloading?
