@@ -1,10 +1,12 @@
 FROM python:3.10-slim
 
 WORKDIR /app
-COPY ./server/requirements.txt /app/requirements.txt
+
+COPY ./requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
-COPY ./server /app/
+
+COPY . .
 
 EXPOSE 8000
 
