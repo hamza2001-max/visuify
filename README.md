@@ -12,7 +12,7 @@ This project involves creating a backend system for an image processing service 
 Note: *use `sudo` before each docker-compose command if it doesn't work directly*
 
 ### Build and Run using Docker-Compose
-`docker-compose run`
+`docker-compose up`
 
 ### Stopping the Running Containers
 The containers are running in attached mode, you can stop them with focusing in the terminal and using `Crtl+C`
