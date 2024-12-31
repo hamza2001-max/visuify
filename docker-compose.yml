@@ -5,13 +5,14 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"  # Map the exact Vite development port
+      - "5173:5173"
     volumes:
       - ./client:/app
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
       - VITE_HOST=0.0.0.0
+  
   server:
     build: 
       context: ./server
@@ -20,4 +21,27 @@ services:
       - "8000:8000"
     volumes:
       - ./server:/app
-    
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/visuify_db
+    depends_on:
+      - db  
+  
+  db:
+    image: postgres:13-alpine 
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=visuify_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - default
+  
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    driver: bridge
