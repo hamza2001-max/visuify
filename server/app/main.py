@@ -5,7 +5,6 @@ from .models.models import User
 from .utils.auth import hash_password, create_access_token
 
 Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
 
 @app.post("/signup/")
@@ -19,7 +18,6 @@ def sign_up(username: str, email: str, password: str, db: Session = Depends(get_
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-
     return {"message": "User created successfully"}
 
 @app.post("/login/")
@@ -30,3 +28,8 @@ def login(email: str, password: str, db: Session = Depends(get_db)):
     
     access_token = create_access_token(data={"sub": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
+
+@app.get("/users/")
+def get_users(db: Session = Depends(get_db)):
+    users = db.query(User).all()
+    return users
